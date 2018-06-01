@@ -1,0 +1,151 @@
+
+
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="chrome=1">
+      <title>MCEC algorithm | Multivariate Correlations for Early Classification</title>
+      
+      <link rel="stylesheet" href="stylesheets/styles.css">
+      <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+      <meta name="viewport" content="width=device-width">
+      <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+   </head>
+   <body>
+      <div class="wrapper">
+      <header>
+         <h1>MCEC algorithm</h1>
+         <p>Java implementation of an information-theoretic algorithm that combines
+            Multivariate Correlations with Early Classification 
+         </p>
+         <p class="view"><a href="https://github.com/joaopbeirao/MCECalgorithm">View the Project on GitHub <small>MCEC algorithm</small></a></p>
+         <ul>
+            <li><a href="https://github.com/joaopbeirao/MCECalgorithm/raw/master/JarFile_withExample/MCECalgorithm.jar">Download<strong>JAR file</strong></a></li>
+            <li><a href="https://github.com/joaopbeirao/MCECalgorithm/archive/master.zip">Download<strong>ZIP file</strong></a></li>
+         </ul>
+      </header>
+      <section>
+         <h3>Program description</h3>
+         <p> MCEC (Multivariate Correlations for Early Classification) algorithm is a Java implementation of an information-theoretic 
+            method for examining the early classification opportunity in a dataset. This dataset contains univariate or 
+            multivariate time series together with their respective class labels. The program can be downloaded 
+            <a href="https://github.com/joaopbeirao/MCECalgorithm/raw/master/JarFile_withExample/MCECalgorithm.jar">here</a>.
+         </p>
+         <h4>Input</h4>
+         <p>
+            The input file must be in comma-separated values (CSV) format, containing the time series and the respective class labels.
+            <ul>
+               <li>Each line is expected to correspond to one instance.</li>
+               <li>The columns must include the features grouped per time point, chronologically organized. 
+               The last column corresponds to the class attribute.</li>
+               <li>The first line is the header, containing the names of the attributes and the associated time point. Example: 
+               "Att1_TP1", "Att2_TP1", "Att1_TP2", "Att2_TP2", "class".</li>
+            </ul>
+            The number of attributes (dimensions) is also required as input. The time series can be univariate 
+            or multivariate, however, they must be of fixed length. Numeric attributes must be discretized and
+            the dataset cannot contain missing values, since the algorithm is not provided with any imputation procedure.
+         <p>
+         </p>
+         <p>
+            Dataset example:
+         </p>
+         <pre><code>X1_1, X2_1, X1_2, X2_2, class
+TRUE, FALSE, FALSE, FALSE, C1
+FALSE, FALSE, TRUE, FALSE, C0
+TRUE, TRUE, FALSE, FALSE, C0
+TRUE, FALSE, TRUE, TRUE, C1
+(...)
+</code></pre>
+         <p>
+         </p>
+         <h4>Output</h4>
+         <p>
+            The outcomes of the difference in entropy, log-likelihood, MDL score, AIC score and classification accuracy analysis, 
+            all for n = {1, ..., L} are outputted from the Java program in text files:
+            <ul>
+               <li>dataEntropyDiff.txt.</li>
+               <li>dataLL.txt.</li>
+               <li>dataMDL.txt.</li>
+               <li>dataAIC.txt.</li>
+               <li>classResults.txt.</li>
+            </ul>
+            The implementation uses some functionalities of 
+            <a href="https://www.cs.waikato.ac.nz/ml/weka/downloading.html">Weka Data Mining Software</a> and an additional 
+            <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">Matlab script</a> 
+            is provided for generating the five graphs for representing the results.
+         </p>
+         <h4>Observations</h4>
+         <p> 
+            The file <a href="https://github.com/joaopbeirao/MCECalgorithm/raw/master/Appendix_SyntheticExampleOfMCECalgorithm.pdf">Appendix_SyntheticExampleOfMCECalgorithm.pdf</a> 
+            includes a detailed explanation of the proposed method applied to a synthetically generated dataset. 
+            For clarification purposes, the functioning of the algorithm is expounded through calculation descriptions 
+            and graph analysis.
+         </p>
+         <p>
+            The proposed implementation provides the Markov Lag, an alternative to the standard Early Classification approach. 
+            Basically, instead of analysing the correlations from the initial time point until the last, it uses the inverse order 
+            (from the last to the first one). In this case, the idea is to check of how much information from the closest past we 
+            need, in order to obtain a satisfactory prediction.
+         </p>
+         <h4>Libraries</h4>
+         <p>
+            MCEC algorithm depends on two external libraries:
+               <ul><li><a href="https://poi.apache.org/download.html">Apache POI</a>;
+               <li><a href="https://www.cs.waikato.ac.nz/ml/weka/downloading.html">Weka Data Mining Software</a>.
+               </ul>
+         </p>
+         
+         <h3>Usage</h3>
+         <p>Execute the jar file:
+         <pre><code>$ java -jar MCECalgorithm.jar [dataset-filename].csv [N] [optionClass] [MarkovLag]</code></pre>
+         where the command-line options correspond to:
+         </p>
+         <pre><code>
+[dataset-filename]   Type: String - Name of the dataset file to be analysed.
+[N]                  Type: Integer - Number of features per time point.
+[optionClass]        Type: Boolean - With classification analysis (TRUE)
+                     or without classification analysis (FALSE).
+[MarkovLag]          Type: Boolean - With Markov lag approach (TRUE)
+                     or with standard Early Classification (FALSE).
+</code></pre>
+         
+         <h4>Synthetic dataset example</h4>
+         <p>
+            The very simple <a href="files/syntheticTest.csv">syntheticTest.csv</a> dataset example is described in the following table:
+         </p>
+         <p><img src="images/datasetTable.PNG">            
+         </p>
+         <p>The command for analysing the early classification opportunity is
+         <pre><code>$ java -jar MCECalgorithm.jar syntheticTest.csv 1 TRUE FALSE</code></pre>
+         </p>
+         <p>
+            and produces the following files:
+         <ul>
+            <li><a href="files/dataEntropyDiff.txt">dataEntropyDiff.txt</a>, with the difference in entropy results</li>
+            <li><a href="files/dataLL.txt">dataLL.csv</a>, with the log-likelihood results</li>
+            <li><a href="files/dataMDL.txt">dataMDL.txt</a>, with the MDL score results</li>
+            <li><a href="files/dataAIC.txt">dataAIC.txt</a>, with the AIC score results</li>
+            <li><a href="files/classResults.txt">classResultsL.txt</a>, with the classification accuracy analysis</li>
+         </ul>
+         Running the Matlab script 
+         <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">MCEC_program.m</a> 
+         (with the associated functions) in the same directory as 
+         the text files produces the following graphs:
+         <p><img src="images/entropyDiff_syntheticExample.png"></p>
+         <p><img src="images/LL_syntheticExample.png"></p>
+         <p><img src="images/MDL_syntheticExample.png"></p>
+         <p><img src="images/AIC_syntheticExample.png"></p>
+         <p><img src="images/classResults_syntheticExample.png"></p>
+                  
+      </section>
+      <footer>
+         <p>This project is maintained by <a href="https://github.com/joaopbeirao">joaopbeirao</a></p>
+         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+      </div>
+   </body>
+</html>
+
