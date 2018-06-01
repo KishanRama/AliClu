@@ -43,6 +43,34 @@ $ [give_a_name]/bin/activate.ba			#for a windows machine
 $ pip install -r requirements.txt	</code></pre>
             </ul>
          <p>
+		 
+		 <h3>Usage</h3>
+         <p>Execute the python file AliClu.py:
+         <pre><code>$ python AliClu.py [-h] [-g] [-tp] [-M] [-d] filename maxClusters automatic  </code></pre>
+         The command-line options are:
+         </p>
+         <pre><code>
+positional arguments:
+	filename							Input CSV file with temporal sequences for each patient.
+	maxClusters							Maximum number of clusters to be analysed on the validation step.
+	automatic							1 to run AliClu automatically, 0 otherwise.
+	
+optional arguments:
+	-h, --help							Show this help message and exit.
+	-g, --gap							Gap penalty. To analyse a range of gap penalties, the argument should be 
+										"[min_gap max_gap step_gap]" where min_gap and max_gap are the minimum and maximum gap penalties
+										to be analysed and step_gap is the space between the gap values. To analyse only one gap value
+										simply write "[gap_value]".
+	-tp, --temporalPenaltyConstant		Temporal Penalty Constant.
+	-M, --bootStrapSamples				Number of bootstrap samples.
+	-d, --distanceMetric				Distance metric for agglomerative clustering.
+	
+</code></pre>
+		 
+		 
+		 
+		 
+		 
          <h4>Input</h4>
          <p>
             The input file must be in comma-separated values (CSV) format, containing the time series and the respective class labels.
