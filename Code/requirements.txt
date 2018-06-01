@@ -1,0 +1,7 @@
+pandas
+numpy
+argparse
+matplotlib
+scipy
+fastcluster
+statistics
