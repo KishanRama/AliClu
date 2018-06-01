@@ -1,0 +1,8 @@
+title: MCECalgorithm
+description: "information-theoretic algorithm that combines Multivariate Correlations with Early Classification "
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
