@@ -1,0 +1,8 @@
+title: AliClu
+description: "Temporal sequence alignment and agglomerative clustering of medical longitudinal data "
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
