@@ -151,22 +151,20 @@ optional arguments:
 		 
 		 <h4>Example 2 - Non-automatic</h4>
          <p>
-            The very simple <a href="files/syntheticTest.csv">syntheticTest.csv</a> dataset example is described in the following table:
+			In this example let us run AliClu in the non-automatic mode. The input CSV file is again <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a>
+			and 8 is the maximum number of clusters to analyse.
          </p>
-         <p><img src="images/datasetTable.PNG">            
-         </p>
-         <p>The command for analysing the early classification opportunity is
-         <pre><code>$ java -jar MCECalgorithm.jar syntheticTest.csv 1 TRUE FALSE</code></pre>
+         <p>The command line to run AliClu in the non-automatic mode is:
+         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 0</code></pre>
          </p>
          <p>
-            and produces the following files:
-         <ul>
-            <li><a href="files/dataEntropyDiff.txt">dataEntropyDiff.txt</a>, with the difference in entropy results</li>
-            <li><a href="files/dataLL.txt">dataLL.csv</a>, with the log-likelihood results</li>
-            <li><a href="files/dataMDL.txt">dataMDL.txt</a>, with the MDL score results</li>
-            <li><a href="files/dataAIC.txt">dataAIC.txt</a>, with the AIC score results</li>
-            <li><a href="files/classResults.txt">classResultsL.txt</a>, with the classification accuracy analysis</li>
-         </ul>
+            which will give the following in the terminal:
+		<p><img src="images/non_automatic_run.png"></p>
+
+		The program is asking the user to input the final number of clusters. In this stage, the program produced a pdf file named non_automatic_analysis.pdf
+		that is meant to auxiliate the user on making the final decision on the number of clusters. The pdf file contains:
+        <p><embed src="images/non_automatic_analysis.pdf" width="800px" height="2100px" /></p>
+
          Running the Matlab script 
          <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">MCEC_program.m</a> 
          (with the associated functions) in the same directory as 
