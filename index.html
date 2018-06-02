@@ -135,12 +135,13 @@ optional arguments:
          <h4>Example 1 - Automatic</h4>
          <p>
 			In this example let us run AliClu in the automatic mode. The <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a> is the input CSV file, which contains 3 clusters produced by 3 different continuous-time Markov Chains.
+			Cluster 1 contain patients with id_patient from 0 to 9, Cluster 2 contain patients with id_patient from 10 to 19 and Cluster 3 has the remaining patients.
          <p>Let us choose 8 as the maximum number of clusters to analyse. The command line to run AliClu and obtain the final clusters automatically is:
          <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 1</code></pre>
          </p>
          <p>
 			Note that no optional argument was used, hence, all the other parameters used in AliClu are set to default.
-            The program outputs the following:
+            The program correctly founds the 3 clusters and outputs the following:
          <ul>
             <li>A directory 'ward_gap_0.8_Tp_0.25_clusters_3' is created with the final clusters in 3 separated CSV files
 			     (<a href="files/ward_gap_0.8_Tp_0.25_clusters_3/Cluster 1 - 10 elements.csv">Cluster 1 - 10 elements.csv</a>, 
@@ -158,20 +159,20 @@ optional arguments:
          <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 0</code></pre>
          </p>
          <p>
-            which will give the following in the terminal:
+            which will give the following in the terminal: </p>
 		<p><img src="images/non_automatic_run.png"></p>
 
-		The program is asking the user to input the final number of clusters. In this stage, the program produced a pdf file named non_automatic_analysis.pdf
+		<p>The program is asking the user to input the final number of clusters. In this stage, the program produced a pdf file named non_automatic_analysis.pdf
 		that is meant to auxiliate the user on making the final decision on the number of clusters. The pdf file 
-		(download for better visualization in your local pdf viewer) contains:
+		(download for better visualization in your local pdf viewer) contains:</p>
         <p><embed src="files/non_automatic_analysis.pdf" width="500" height="375" type='application/pdf'></p>
 
-		After analysing the pdf file, the user chooses 3 as the final number of clusters:
+		<p>After analysing the pdf file, the user chooses 3 as the final number of clusters:</p>
 		<p><img src="images/non_automatic_run_cluster.png"></p>
-		Since more than one gap penalty was analysed, the user also has to input the chosen gap penalty. If only one gap penalty was analysed by the program
-		it would not be necessary to input this information to the program. Let us choose again 0.8:
-		<p><img src="images/non_automatic_run_gap2"></p>
-		The program ends and produces again the same outputs as in example 1.
+		<p>Since more than one gap penalty was analysed, the user also has to input the chosen gap penalty. If only one gap penalty was analysed by the program
+		it would not be necessary to input this information to the program. Let us choose again 0.8:</p>
+		<p><img src="images/non_automatic_run_gap2.png"></p>
+		<p>The program ends and produces again the same outputs as in example 1.</p>
    
       </section>
       <footer>
