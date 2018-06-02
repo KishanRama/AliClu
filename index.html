@@ -63,11 +63,12 @@ optional arguments:
 				"[min_gap max_gap step_gap]" where min_gap and max_gap are the minimum and
 				maximum gap penalties to be analysed and step_gap is the space between 
 				the gap values. To analyse only one gap value simply write "[gap_value]".
+				Default the gap ranges from -1 to 1 in steps of 0.1.
   -tp, --temporalPenaltyConstant	
-				Temporal Penalty Constant.
-  -M, --bootStrapSamples	Number of bootstrap samples.
+				Temporal Penalty Constant. Default tp is 0.25.
+  -M, --bootStrapSamples	Number of bootstrap samples. Default M is 250.
   -d, --distanceMetric		Distance metric for agglomerative clustering. Only 5 distance metrics
-				allowed: single, complete, average, centroid and ward.
+				allowed: single, complete, average, centroid and ward. Default d is ward.
 	
 </code></pre>
 		 
@@ -76,7 +77,7 @@ optional arguments:
             The input file must be in comma-separated values (CSV) format, containing the temporal sequences for each subject.
             <ul>
                <li>The first line is the header with the names of the needed attributes. 
-			   The header must be always "id_patient","aux_encode". </li>
+			   The header must be always "id_patient", "aux_encode". </li>
                <li>The first column corresponds to the identifier of each subject whereas
 					the second column refers to the temporal sequences in the prefix-encoded format.</li>
                <li>All the other lines contains the temporal sequences for each subject.</li>
@@ -97,7 +98,7 @@ optional arguments:
 </code></pre>
          <p>
          </p>
-         <h4>Output</h4>
+		 <h4>Data preprocessing</h4>
          <p>
             The outcomes of the difference in entropy, log-likelihood, MDL score, AIC score and classification accuracy analysis, 
             all for n = {1, ..., L} are outputted from the Java program in text files:
@@ -113,40 +114,19 @@ optional arguments:
             <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">Matlab script</a> 
             is provided for generating the five graphs for representing the results.
          </p>
-         <h4>Observations</h4>
-         <p> 
-            The file <a href="https://github.com/joaopbeirao/MCECalgorithm/raw/master/Appendix_SyntheticExampleOfMCECalgorithm.pdf">Appendix_SyntheticExampleOfMCECalgorithm.pdf</a> 
-            includes a detailed explanation of the proposed method applied to a synthetically generated dataset. 
-            For clarification purposes, the functioning of the algorithm is expounded through calculation descriptions 
-            and graph analysis.
-         </p>
+		 
+         <h4>Output</h4>
          <p>
-            The proposed implementation provides the Markov Lag, an alternative to the standard Early Classification approach. 
-            Basically, instead of analysing the correlations from the initial time point until the last, it uses the inverse order 
-            (from the last to the first one). In this case, the idea is to check of how much information from the closest past we 
-            need, in order to obtain a satisfactory prediction.
+			The program outputs the final clusters and the cluster stability analysis. The clusters are presented in separated CSV files in a new directory.
+			For example, consider that the program yields 3 clusters. Then 3 CSV files will appear in a directory called '[distanceMetric]_gap_[chosen_gap]_Tp_[tp]_clusters_3':
+			<ul>
+               <li>Cluster 1 - N1 elements.csv</li>
+               <li>Cluster 2 - N2 elements.csv</li>
+               <li>Cluster 3 - N3 elements.csv</li>
+            </ul>
+			where [distanceMetric] is the distance metric used in agglomerative clustering, [chosen_gap] is the chosen gap penalty and [tp] the temporal penalty constant used in the program.
+			N1, N2 and N3 are the number of elements in Cluster 1, 2 and 3, respectively.
          </p>
-         <h4>Libraries</h4>
-         <p>
-            MCEC algorithm depends on two external libraries:
-               <ul><li><a href="https://poi.apache.org/download.html">Apache POI</a>;
-               <li><a href="https://www.cs.waikato.ac.nz/ml/weka/downloading.html">Weka Data Mining Software</a>.
-               </ul>
-         </p>
-         
-         <h3>Usage</h3>
-         <p>Execute the jar file:
-         <pre><code>$ java -jar MCECalgorithm.jar [dataset-filename].csv [N] [optionClass] [MarkovLag]</code></pre>
-         where the command-line options correspond to:
-         </p>
-         <pre><code>
-[dataset-filename]   Type: String - Name of the dataset file to be analysed.
-[N]                  Type: Integer - Number of features per time point.
-[optionClass]        Type: Boolean - With classification analysis (TRUE)
-                     or without classification analysis (FALSE).
-[MarkovLag]          Type: Boolean - With Markov lag approach (TRUE)
-                     or with standard Early Classification (FALSE).
-</code></pre>
          
          <h4>Synthetic dataset example</h4>
          <p>
