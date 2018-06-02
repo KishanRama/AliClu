@@ -18,13 +18,13 @@
       <div class="wrapper">
       <header>
          <h1>AliClu</h1>
-         <p> A Python implementation of a method that combines Temporal Needleman-Wunsch and aglomerative clustering.
+         <p> A Python implementation of a method that combines Temporal Needleman-Wunsch (TNW) and aglomerative clustering.
          </p>
          <p class="view"><a href="https://github.com/KishanRama/AliClu">View the Project on GitHub <small>AliClu</small></a></p>
       </header>
       <section>
          <h3>Program description</h3>
-         <p> AliClu is a Python implementation of a method that combines Temporal Needleman-Wunsch and agglomerative hierarchical clustering. The program
+         <p> AliClu is a Python implementation of a method that combines Temporal Needleman-Wunsch (TNW) and agglomerative hierarchical clustering. The program
 		 receives a set of temporal sequences and outputs the final clusters. The program can be used in an automatic or non-automatic manner. In the automatic
 		 mode, the program automatically outputs the final clusters in separated CSV files and a pdf file with the cluster stability analysis. 
 		 In the non-automatic mode, the program first produces a pdf file with dendrograms, tables of averages of clustering indices and graphs with the standard deviation of Adjusted Rand.
@@ -127,38 +127,28 @@ optional arguments:
 			where [distanceMetric] is the distance metric used in agglomerative clustering, [chosen_gap] is the chosen gap penalty and [tp] the temporal penalty constant used in the program.
 			N1, N2 and N3 are the number of elements in Cluster 1, 2 and 3, respectively.
 		 <br>
-		 The cluster stability analysis is presented in a pdf file named cluster_stability_analysis.pdf
+		 The cluster stability analysis is presented in a pdf file named cluster_stability_analysis.pdf.
 		 </br>
          </p>
 
          
          <h4>Example 1 - Automatic</h4>
          <p>
-			In this example let us run AliClu in the automatic mode. The <a href="files/synthetic_temporal_sequences_csv">synthetic_temporal_sequences</a> is the input CSV file, which contains 3 clusters produced by 3 different continuous-time Markov Chains:
+			In this example let us run AliClu in the automatic mode. The <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a> is the input CSV file, which contains 3 clusters produced by 3 different continuous-time Markov Chains.
          </p>
          <p><img src="images/datasetTable.PNG">            
          </p>
-         <p>The command for analysing the early classification opportunity is
-         <pre><code>$ java -jar MCECalgorithm.jar syntheticTest.csv 1 TRUE FALSE</code></pre>
+         <p>Let us choose 8 as the maximum number of clusters to analyse. The command line to run AliClu and obtain the final clusters automatically is:
+         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 1</code></pre>
          </p>
          <p>
-            and produces the following files:
+			Note that no optional argument was used, hence, all the other parameters used in AliClu are set to default.
+            The program outputs the following:
          <ul>
-            <li><a href="files/dataEntropyDiff.txt">dataEntropyDiff.txt</a>, with the difference in entropy results</li>
-            <li><a href="files/dataLL.txt">dataLL.csv</a>, with the log-likelihood results</li>
-            <li><a href="files/dataMDL.txt">dataMDL.txt</a>, with the MDL score results</li>
-            <li><a href="files/dataAIC.txt">dataAIC.txt</a>, with the AIC score results</li>
-            <li><a href="files/classResults.txt">classResultsL.txt</a>, with the classification accuracy analysis</li>
+            <li>A directory <a href="files/ward_gap_0.8_Tp_0.25_clusters_3">ward_gap_0.8_Tp_0.25_clusters_3</a> is created with the final clusters in 3 separated CSV files
+			     (Cluster 1 - 10 elements.csv, Cluster 2 - 10 elements.csv, Cluster 3 - 10 elements.csv).</li>
+            <li><a href="files/cluster_stability_analysis.pdf">cluster_stability_analysis.pdf</a>, with the cluster stability analysis.</li>
          </ul>
-         Running the Matlab script 
-         <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">MCEC_program.m</a> 
-         (with the associated functions) in the same directory as 
-         the text files produces the following graphs:
-         <p><img src="images/entropyDiff_syntheticExample.png"></p>
-         <p><img src="images/LL_syntheticExample.png"></p>
-         <p><img src="images/MDL_syntheticExample.png"></p>
-         <p><img src="images/AIC_syntheticExample.png"></p>
-         <p><img src="images/classResults_syntheticExample.png"></p>
 		 
 		 <h4>Example 2 - Non-automatic</h4>
          <p>
