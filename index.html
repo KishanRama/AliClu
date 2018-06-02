@@ -131,7 +131,35 @@ optional arguments:
 		 The cluster stability analysis is presented in a pdf file named cluster_stability_analysis.pdf
 		 </br>
          
-         <h4>Synthetic dataset example</h4>
+         <h4>Example 1 - Automatic</h4>
+         <p>
+			In this example let us run AliClu in the automatic mode. The <a href="files/synthetic_temporal_sequences_csv">synthetic_temporal_sequences</a>
+         </p>
+         <p><img src="images/datasetTable.PNG">            
+         </p>
+         <p>The command for analysing the early classification opportunity is
+         <pre><code>$ java -jar MCECalgorithm.jar syntheticTest.csv 1 TRUE FALSE</code></pre>
+         </p>
+         <p>
+            and produces the following files:
+         <ul>
+            <li><a href="files/dataEntropyDiff.txt">dataEntropyDiff.txt</a>, with the difference in entropy results</li>
+            <li><a href="files/dataLL.txt">dataLL.csv</a>, with the log-likelihood results</li>
+            <li><a href="files/dataMDL.txt">dataMDL.txt</a>, with the MDL score results</li>
+            <li><a href="files/dataAIC.txt">dataAIC.txt</a>, with the AIC score results</li>
+            <li><a href="files/classResults.txt">classResultsL.txt</a>, with the classification accuracy analysis</li>
+         </ul>
+         Running the Matlab script 
+         <a href="https://github.com/joaopbeirao/MCECalgorithm/blob/master/MATLABscript_PlotGraphs/MCEC_program.m">MCEC_program.m</a> 
+         (with the associated functions) in the same directory as 
+         the text files produces the following graphs:
+         <p><img src="images/entropyDiff_syntheticExample.png"></p>
+         <p><img src="images/LL_syntheticExample.png"></p>
+         <p><img src="images/MDL_syntheticExample.png"></p>
+         <p><img src="images/AIC_syntheticExample.png"></p>
+         <p><img src="images/classResults_syntheticExample.png"></p>
+		 
+		 <h4>Example 2 - Non-automatic</h4>
          <p>
             The very simple <a href="files/syntheticTest.csv">syntheticTest.csv</a> dataset example is described in the following table:
          </p>
