@@ -25,7 +25,10 @@
       <section>
          <h3>Program description</h3>
          <p> AliClu is a Python implementation of a method that combines Temporal Needleman-Wunsch and agglomerative hierarchical clustering. The program
-		 receives a set of temporal sequences and outputs the final clusters.
+		 receives a set of temporal sequences and outputs the final clusters. The program can be used in an automatic or non-automatic manner. In the automatic
+		 mode, the program automatically outputs the final clusters in separated CSV files and a pdf file with the cluster stability analysis. 
+		 In the non-automatic mode, the program first produces a pdf file with dendrograms, tables of averages of clustering indices and graphs with the standard deviation of Adjusted Rand.
+		 After analysing this pdf file, the user can input the final number of clusters and the program will output the final clusters and the cluster stability analysis.
 		 The python files required to run the program can be downloaded 
             <a href="https://github.com/KishanRama/AliClu/tree/master/Code">here</a>.
          </p>
@@ -68,33 +71,28 @@ optional arguments:
 	
 </code></pre>
 		 
-		 
-		 
-		 
-		 
          <h4>Input</h4>
          <p>
-            The input file must be in comma-separated values (CSV) format, containing the time series and the respective class labels.
+            The input file must be in comma-separated values (CSV) format, containing the temporal sequences for each subject.
             <ul>
-               <li>Each line is expected to correspond to one instance.</li>
-               <li>The columns must include the features grouped per time point, chronologically organized. 
-               The last column corresponds to the class attribute.</li>
-               <li>The first line is the header, containing the names of the attributes and the associated time point. Example: 
-               "Att1_TP1", "Att2_TP1", "Att1_TP2", "Att2_TP2", "class".</li>
+               <li>The first line is the header with the names of the needed attributes. 
+			   The header must be always "id_patient","aux_encode". </li>
+               <li>The first column corresponds to the identifier of each subject whereas
+					the second column refers to the temporal sequences in the prefix-encoded format.</li>
+               <li>All the other lines contains the temporal sequences for each subject.</li>
             </ul>
-            The number of attributes (dimensions) is also required as input. The time series can be univariate 
-            or multivariate, however, they must be of fixed length. Numeric attributes must be discretized and
-            the dataset cannot contain missing values, since the algorithm is not provided with any imputation procedure.
          <p>
          </p>
          <p>
-            Dataset example:
+            Input file example:
          </p>
-         <pre><code>X1_1, X2_1, X1_2, X2_2, class
-TRUE, FALSE, FALSE, FALSE, C1
-FALSE, FALSE, TRUE, FALSE, C0
-TRUE, TRUE, FALSE, FALSE, C0
-TRUE, FALSE, TRUE, TRUE, C1
+         <pre><code>id_patient, aux_encode
+33496,"0.B,156.C,314.D,1696.Z"
+33499,"0.B,148.Z"
+33502,"0.A,120.B,2187.Z"
+33505,"0.A,873.B,255.C,1145.Z"
+33508,"0.A,358.B,420.C,963.D,239.Z"
+33511,"0.A,2192.Z"		 
 (...)
 </code></pre>
          <p>
