@@ -116,7 +116,7 @@ if __name__ == '__main__':
     #pdf file to store dendrogram, table of averages and graph of standard deviation
     #when using AliClu in a non automated way
     if(args.automatic == 0):
-        pp = PdfPages('non_automatic_analysis.pdf')
+        pp = PdfPages('semi_automatic_analysis.pdf')
     else:
         pp = 0
     for gap in gap_values:
