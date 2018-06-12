@@ -25,10 +25,10 @@
       </header>
       <section>
          <h3>Program description</h3>
-         <p> AliClu is a Python implementation of a method that combines Temporal Needleman-Wunsch (TNW) [<a href="#ref1">1</a>] and agglomerative hierarchical clustering. The program
-		 receives a set of temporal sequences and outputs the final clusters. The program can be used in an automatic or non-automatic manner. In the automatic
-		 mode, the program automatically outputs the final clusters in separated CSV files and a pdf file with the cluster stability analysis. 
-		 In the non-automatic mode, the program first produces a pdf file with dendrograms, tables of averages of clustering indices and graphs with the standard deviation of Adjusted Rand.
+         <p> AliClu is a Python implementation of a method that combines Temporal Needleman-Wunsch (TNW) [<a href="#ref1">1</a>] and agglomerative hierarchical clustering with validation [<a href="#ref2">2</a>]. The program
+		 receives a set of temporal sequences and outputs the final clusters. The program can be used in an automatic or semi-automatic manner. In the automatic
+		 mode, the program outputs the final clusters in separated CSV files and a pdf file with the cluster stability analysis. 
+		 In the semi-automatic mode, the program first produces a pdf file with dendrograms, tables of averages of clustering indices and graphs with the standard deviation of Adjusted Rand.
 		 After analysing this pdf file, the user can input the final number of clusters and the program will output the final clusters and the cluster stability analysis.
 		 The python files required to run the program can be downloaded 
             <a href="https://github.com/KishanRama/AliClu/tree/master/Code">here</a>.
@@ -139,12 +139,12 @@ Loading...
             <li><a href="files/cluster_stability_analysis.pdf">cluster_stability_analysis.pdf</a>, with the cluster stability analysis.</li>
          </ul>
 		 
-		 <h4>Example 2 - Non-automatic</h4>
+		 <h4>Example 2 - Semi-automatic</h4>
          <p>
-			In this example let us run AliClu in the non-automatic mode. The input CSV file is again <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a>
+			In this example let us run AliClu in the semi-automatic mode. The input CSV file is again <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a>
 			and we choose 8 as the maximum number of clusters to be analysed.
          </p>
-         <p>The command line to run AliClu in the non-automatic mode is:
+         <p>The command line to run AliClu in the semi-automatic mode is:
          <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 0</code></pre>
          </p>
          <p>
@@ -186,6 +186,7 @@ Loading...
 		 <h3>References</h3>
          <ol>
             <li><a name="ref1"></a>H. Syed and A. K. Das. Temporal Needleman-Wunsch. <i>IEEE International Conference on Data Science and Advanced Analysis (DSAA)</i>, Dec. 2015.</li>
+			<li><a name="ref2"></a>H.-J. Mucha. On validation of hierarchical clustering. In R. Decker and H. J. Lenz, editors, <i>Advances in Data Analysis</i>, pages 115-122, Berlin, Heidelberg, 20017. Springer Berlin Heidelberg</li>
          </ol>
 
    
