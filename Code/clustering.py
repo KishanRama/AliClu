@@ -28,7 +28,7 @@ def hierarchical_clustering(distance_matrix,method,gap,Tp,automatic,pp):
     #agglomerative clustering
     Z = linkage(distance_matrix, method)
     
-    if(automatic == 0):
+    if(automatic == 0 or automatic == 1):
         #dendrogram plot
         fig = plt.figure(figsize=(40, 20))
         plt.title('Hierarchical Clustering Dendrogram - gap: %.2f, Tp: %.2f, %s link'  %(gap,Tp,method),fontsize=30)

@@ -30,10 +30,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='AliClu')
     #positional arguments - filename, maximum number of clusters, automatic or not 
     parser.add_argument("filename",help='Input CSV file with temporal sequences for each patient')
+    parser.add_argument("minClusters",type=int,help='Minimum number of clusters to analyse on validation step')
     parser.add_argument("maxClusters",type=int,help='Maximum number of clusters to analyse on validation step')
     parser.add_argument('automatic',type=int,help='1 to run AliClu automatically, 0 otherwise')
-    #optional arguments - gap penalty, temporal penalty constant, number of 
+    #optional arguments - scoring system, gap penalty, temporal penalty constant, number of 
     #bootstrap samples, distance metric for hierarchical clustering
+    parser.add_argument('-SS','--ScoringSystem',metavar='',help='Pre-defined scoring system')
     parser.add_argument('-g','--gap',metavar='',help='Gap penalty')
     parser.add_argument('-tp','--temporalPenaltyConstant',type=float,metavar='',help='Temporal penalty constant')
     parser.add_argument('-M','--bootstrapSamples',type=int,metavar='',help='Number of bootstrap samples')
@@ -44,8 +46,19 @@ if __name__ == '__main__':
     #               PARAMETERS
     ###############################################################################
     #pre-defined scoring system for TNW Algorithm
-    match=1.
-    mismatch=-1.1
+    if(args.ScoringSystem):
+        ss_string_values = args.ScoringSystem.split('[')[1].split(']')[0].split(' ')
+        if(len(ss_string_values)==2):
+            match = float(ss_string_values[0])
+            mismatch = float(ss_string_values[1])
+        else:
+            parser.error("Scoring System not in the correct format")
+    else:           
+        match=1.
+        mismatch=-1.1
+        
+    #print(match)
+    #print(mismatch)
     #initialize pre-defined scoring dictionary
     s = {'11': match}
     #get all combinations of letters of alphabet
@@ -90,6 +103,9 @@ if __name__ == '__main__':
         M = 250
     #print(M)
     
+    #mnimum number of clusters to analyse on validation step
+    min_K = args.minClusters 
+    #print(min_K)
     #maximum number of clusters to analyse on validation step
     max_K = args.maxClusters
     #print(max_K)
@@ -118,7 +134,7 @@ if __name__ == '__main__':
     if(args.automatic == 0):
         pp = PdfPages('semi_automatic_analysis.pdf')
     else:
-        pp = 0
+        pp = PdfPages('full_analysis.pdf')
     for gap in gap_values:
         
         print('Analysing with gap %.2f...'  %gap)
@@ -141,7 +157,7 @@ if __name__ == '__main__':
             Z = hierarchical_clustering(results['score'],method,gap,T,args.automatic,pp)
 
             #validation
-            chosen = validation(M,df_encoded,results,Z,method,max_K+1,args.automatic,pp,gap,T)
+            chosen = validation(M,df_encoded,results,Z,method,min_K,max_K+1,args.automatic,pp,gap,T)
             chosen_k = chosen[2]
             df_avgs = chosen[0]
             df_stds = chosen[1]
@@ -153,6 +169,8 @@ if __name__ == '__main__':
     ############################################################################
     #       RESULTS
     ############################################################################
+    #close pdf  
+    pp.close()
     if(args.automatic==1):
         df_final_decision = pd.concat(concat_for_final_decision,axis=1).T
         final_k_results = final_decision(df_final_decision)
@@ -164,11 +182,11 @@ if __name__ == '__main__':
         k = int(final_k_results['k'])
     elif(args.automatic==0):
         #close pdf  
-        pp.close()
+        #pp.close()
         #USER INPUTS THE FINAL NUMBER OF CLUSTERS
         k = input("Please enter the final number of clusters: ")
         k = float(k)
-        while(k>max_K or k<2):
+        while(k>max_K or k<min_K):
             k = input("Please enter one of the analysed number of clusters: ")
             k = float(k)
         print("Final number of clusters: " + str(k))
@@ -191,7 +209,7 @@ if __name__ == '__main__':
     results['score'] = convert_to_distance_matrix(results['score'])
     
     #hierarchical clustering
-    Z = hierarchical_clustering(results['score'],method,gap,T,1,0)
+    Z = hierarchical_clustering(results['score'],method,gap,T,-1,0)
     
     #reset indexes
     df_encoded = df_encoded.reset_index()

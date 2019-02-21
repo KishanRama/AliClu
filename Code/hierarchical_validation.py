@@ -27,15 +27,15 @@ import itertools
 #       method: distance metric used on hierarchical clustering of results, this will be used
 #               again for hierarchical clustering of the bootstrap samples
 #       max_K: maximum number of clusters that we want to analyze
-def validation(M,df_encoded,results,Z,method,max_K,automatic,pp,gap,Tp):
+def validation(M,df_encoded,results,Z,method,min_K,max_K,automatic,pp,gap,Tp):
     ##############################################################################
     # HOW MANY CLUSTERS?
     ###############################################################################
     # bootstrap method - sampling without replacement
 
-    #dictionary to store all computed indexes for each number of clusters K=2,...max_K
-    dicio_statistics = {k:{} for k in range(2,max_K)}
-    for k in range(2,max_K):
+    #dictionary to store all computed indexes for each number of clusters K=min_K,...max_K
+    dicio_statistics = {k:{} for k in range(min_K,max_K)}
+    for k in range(min_K,max_K):
         dicio_statistics[k]['rand'] = []
         dicio_statistics[k]['adjusted'] = []
         dicio_statistics[k]['FM'] = []
@@ -56,8 +56,8 @@ def validation(M,df_encoded,results,Z,method,max_K,automatic,pp,gap,Tp):
         # Hierarchical Clustering of the bootstrap sample
         Z_bootstrap = linkage(results_bootstrap['score'],method)
 
-        #for each number of clusters k=2,...,max_K
-        for k in range(2,max_K):
+        #for each number of clusters k=min_K,...,max_K
+        for k in range(min_K,max_K):
             c_assignments_original = cut_tree(Z,k)
             c_assignments_bootstrap = cut_tree(Z_bootstrap,k)
             #list of clusters for the clustering result with the original data
@@ -84,12 +84,12 @@ def validation(M,df_encoded,results,Z,method,max_K,automatic,pp,gap,Tp):
     ###########################################################################
 
     #dataframe that stores the clustering indices averages for each k
-    df_avgs = pd.DataFrame(index = range(2,max_K),columns = ['k','Rand','Adjusted Rand','Fowlkes and Mallows','Jaccard','Adjusted Wallace','k_score_avg'], dtype='float')
+    df_avgs = pd.DataFrame(index = range(min_K,max_K),columns = ['k','Rand','Adjusted Rand','Fowlkes and Mallows','Jaccard','Adjusted Wallace','k_score_avg'], dtype='float')
     #dataframe that stores the AR and AW indices standard deviations for each k
-    df_stds = pd.DataFrame(index = range(2,max_K),columns = ['k','Rand','Adjusted Rand','Fowlkes and Mallows','Jaccard','Adjusted Wallace'],dtype = 'float')
+    df_stds = pd.DataFrame(index = range(min_K,max_K),columns = ['k','Rand','Adjusted Rand','Fowlkes and Mallows','Jaccard','Adjusted Wallace'],dtype = 'float')
 
     #computing the means and standard deviations
-    for k in range(2,max_K):
+    for k in range(min_K,max_K):
         df_avgs.loc[k]['k'] = k
         df_avgs.loc[k]['Rand'] = mean(dicio_statistics[k]['rand'])
         df_avgs.loc[k]['Adjusted Rand'] = mean(dicio_statistics[k]['adjusted'])
@@ -122,7 +122,7 @@ def validation(M,df_encoded,results,Z,method,max_K,automatic,pp,gap,Tp):
     final_k = df_avgs['k_score_avg'].idxmax()
 
 
-    if(automatic==0):      
+    if(automatic==0 or automatic==1):      
 
         fig = plt.figure(figsize=(10,5))
         ax = plt.gca()
