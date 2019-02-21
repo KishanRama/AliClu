@@ -59,7 +59,7 @@ $ pip3 install -r requirements.txt	</code></pre>
 		 
 		 <h3>Usage</h3>
          <p>Execute the python file AliClu.py:
-         <pre><code>$ python AliClu.py [-h] [-g] [-tp] [-M] [-d] filename maxClusters automatic  </code></pre>
+         <pre><code>$ python AliClu.py [-h] [-SS] [-g] [-tp] [-M] [-d] filename minClusters maxClusters automatic  </code></pre>
          The command-line options are:
          </p>
          <pre><code>positional arguments:
@@ -138,8 +138,8 @@ Loading...
          <p>
 			In this example let us run AliClu in the automatic mode. The <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a> is the input CSV file, which contains 3 clusters produced by 3 different continuous-time Markov Chains.
 			Cluster 1 contain patients with id_patient from 0 to 9, Cluster 2 contain patients with id_patient from 10 to 19 and Cluster 3 has the remaining patients.
-         <p>Let us choose 8 as the maximum number of clusters to be analysed. The command line to run AliClu and obtain the final clusters automatically is:
-         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 1</code></pre>
+         <p>Let us choose 2 as the minimum number of clusters and 8 as the maximum number of clusters to be analysed. The command line to run AliClu and obtain the final clusters automatically is:
+         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 2 8 1</code></pre>
          </p>
          <p>
 			Note that no optional argument was used, hence, all the other parameters used in AliClu are set to default.
@@ -155,10 +155,10 @@ Loading...
 		 <h4>Example 2 - Semi-automatic</h4>
          <p>
 			In this example let us run AliClu in the semi-automatic mode. The input CSV file is again <a href="files/synthetic_temporal_sequences.csv">synthetic_temporal_sequences.csv</a>
-			and we choose 8 as the maximum number of clusters to be analysed.
+			and we choose 2 as the minimum number of clusters and 8 as the maximum number of clusters to be analysed.
          </p>
          <p>The command line to run AliClu in the semi-automatic mode is:
-         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 8 0</code></pre>
+         <pre><code>$ python AliClu.py synthetic_temporal_sequences.csv 2 8 0</code></pre>
          </p>
          <p>
             which will give the following in the terminal: </p>
