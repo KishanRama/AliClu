@@ -26,6 +26,7 @@ import itertools
 #       Z: result of hierarchical clustering on results
 #       method: distance metric used on hierarchical clustering of results, this will be used
 #               again for hierarchical clustering of the bootstrap samples
+#       min_K: minimum number of clusters that we want to analyze
 #       max_K: maximum number of clusters that we want to analyze
 def validation(M,df_encoded,results,Z,method,min_K,max_K,automatic,pp,gap,Tp):
     ##############################################################################
