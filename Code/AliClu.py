@@ -81,7 +81,7 @@ if __name__ == '__main__':
             max_gap = float(gap_string_values[1])
             step_gap = float(gap_string_values[2])
             #gap_values = np.arange(min_gap,max_gap+step_gap,step_gap)
-            num = (max_gap-min_gap)/(step_gap) + 1
+            num = round((max_gap-min_gap)/(step_gap) + 1,1)
             gap_values = np.linspace(min_gap,max_gap,num)
         else:
             parser.error("Gap values not in the correct format")
