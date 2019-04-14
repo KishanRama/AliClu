@@ -136,7 +136,7 @@ def validation(M,df_encoded,results,Z,method,min_K,max_K,automatic,pp,gap,Tp):
         for row in range(len(df_avgs)):
             cell_text.append(df_avgs.iloc[row,0:-1].round(decimals=3))
         plt.title('Average values of five clustering indices \n gap: %.2f, Tp: %.2f, %s link' %(gap,Tp,method))
-        plt.table(cellText=cell_text, colLabels=colLabels, loc='center',cellLoc='center',fontsize=30)
+        plt.table(cellText=cell_text, colLabels=colLabels, loc='center',cellLoc='center',fontsize=20)
         pp.savefig(fig)
         
     
@@ -155,8 +155,8 @@ def validation(M,df_encoded,results,Z,method,min_K,max_K,automatic,pp,gap,Tp):
         fig1 = plt.figure(3)
         df_stds.loc[:,'Adjusted Rand'].plot.bar(figsize=(15,8),color='forestgreen')
         plt.title('Standard deviation of Adjusted Rand versus number of clusters \n gap: %.2f, Tp: %.2f, %s link' %(gap,Tp,method),fontsize=25)
-        plt.xlabel('Number of clusters',labelpad=20,fontsize=20)    
-        plt.ylabel('Standard deviation',labelpad=10,fontsize=20)    
+        plt.xlabel('Number of clusters',labelpad=20,fontsize=15)    
+        plt.ylabel('Standard deviation',labelpad=10,fontsize=15)    
         plt.xticks(size = 20)
         plt.yticks(size = 20)
         #plt.show()
