@@ -102,7 +102,7 @@ def cluster_validation(M,method,k,partition_found,df_encoded,results,gap,Tp):
     ax.axis('off')
     plt.title('Cluster stability analysis \n gap: %.2f, Tp: %.2f, %s link' %(gap,Tp,method))
     the_table = plt.table(cellText=table, colLabels=headers, loc='center',cellLoc='center')
-    the_table.set_fontsize(15)
+    the_table.set_fontsize(8)
     the_table.scale(1.1, 1.1)
     pp.savefig(fig)
     pp.close()
